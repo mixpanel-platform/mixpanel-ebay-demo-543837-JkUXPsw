@@ -43,7 +43,7 @@
           //interval: 1,                      // alternate way of specifying the number of days you want your results bucketed into
           //where: 'properties["age"] == 21', // an expression to filter by
           //segment: '$browser',              // a segmentation expression or event property
-          };
+        };
           
         // assumes you have an event called 'Track'
         
@@ -69,7 +69,8 @@
                 console.log(results.values());
               });
             }
-        };
+          }
+        }
         
         dateSelect.on('change', function(dateRange) {
           console.log(dateRange.from);
