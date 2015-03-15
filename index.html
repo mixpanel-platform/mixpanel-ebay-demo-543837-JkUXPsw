@@ -53,10 +53,16 @@
               propName  = propSelect.MPPropertySelect('value'),
               birthpName  = propSelect.MPPropertySelect('value'),
               dateRange = dateSelect.MPDatepicker('value');
-              
-          params[born_event] = birthName;
-          params[born_where] = birthpName;
-          params[where] = propName;
+          
+          if(birthName){
+            params[born_event] = birthName;
+          }
+          if(birthpName){
+            params[born_where] = birthpName;
+          }
+          if(propName){
+            params[where] = propName;
+          }
           
           console.log(params);
           
