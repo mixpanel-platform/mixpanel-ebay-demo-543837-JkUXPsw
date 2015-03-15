@@ -20,7 +20,7 @@
         var eventSelect = $('#eventSelect').MPEventSelect();
         var propSelect  = $('#propSelect').MPPropertySelect();
         var dateSelect  = $('#dateSelect').MPDatepicker();
-        var eventGraph  = $('#graph').MPChart({chartType: 'line'});
+        //var eventGraph  = $('#graph').MPChart({chartType: 'line'});
         var eventTable  = $('#table').MPTable({
           showPercentages: true,
           firstColHeader: 'Event'
@@ -50,7 +50,7 @@
 
           if (eventName) {
             MP.api.retention('Item Won', params).done(function(results) {
-              eventGraph.MPChart('setData', results);
+              //eventGraph.MPChart('setData', results);
               eventTable.MPTable('setData', results);
               console.log(results.values());
             });
