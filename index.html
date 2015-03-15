@@ -21,9 +21,6 @@
     <script>
       MP.api.ready(function() {
         var eventSelect = $('#eventSelect').MPEventSelect();
-        var birthSelect = $('#birthSelect').MPEventSelect();
-        var propSelect  = $('#propSelect').MPPropertySelect();
-        var birthpSelect= $('#birthpSelect').MPPropertySelect();
         var dateSelect  = $('#dateSelect').MPDatepicker();
         var eventGraph  = $('#graph').MPChart({chartType: 'line'});
         var eventTable  = $('#table').MPTable({
@@ -49,24 +46,11 @@
         
         var runQuery = function() {
           var eventName = eventSelect.MPEventSelect('value'),
-              birthName = birthSelect.MPEventSelect('value'),
-              propName  = propSelect.MPPropertySelect('value'),
-              birthpName  = propSelect.MPPropertySelect('value'),
               dateRange = dateSelect.MPDatepicker('value');
-          
-          if(birthName){
-            params[born_event] = birthName;
-          }
-          if(birthpName){
-            params[born_where] = birthpName;
-          }
-          if(propName){
-            params[where] = propName;
-          }
           
           console.log(params);
           
-          if (eventName && birthName) {
+          if (eventName) {
             //change 7 later to var for entire date range
             for (i=params[from]; i<params[to]; i++){
                 MP.api.retention(eventName, params).done(function(results) {
@@ -87,17 +71,9 @@
         });
               
         eventSelect.on('change', function(e, eventName) {
-          propSelect.MPPropertySelect('setEvent', eventName);
-          $("#by").show();
+          console.log(eventName);
           runQuery();
         });
-        birthSelect.on('change', function(e, eventName) {
-          birthpSelect.MPPropertySelect('setEvent', eventName);
-          $("#by").show();
-          runQuery();
-        });
-        propSelect.on('change', runQuery);
-        birthpSelect.on('change', runQuery);
       });
     </script>
   </body>
