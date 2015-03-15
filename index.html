@@ -46,15 +46,33 @@
           var eventName = eventSelect.MPEventSelect('value'),
               propName  = propSelect.MPPropertySelect('value'),
               dateRange = dateSelect.MPDatepicker('value');
-
+          
           if (eventName) {
-            MP.api.retention('Item Won', params).done(function(results) {
-              //eventGraph.MPChart('setData', results);
-              eventTable.MPTable('setData', results);
-              console.log(results.values());
-            });
-          }
+            //change 7 later to var for entire date range
+            for (i=dateRange.to; i<dateRange.from, i++){
+                MP.api.retention('Item Won', params).done(function(results) {
+                //eventGraph.MPChart('setData', results);
+                eventTable.MPTable('setData', results);
+                console.log(results.values());
+              });
+            }
         };
+        
+        $('#datePicker').MPDatepicker().on('change', function(dateRange) {
+          console.log(dateRange.from);
+          console.log(dateRange.to);
+          
+          var params = {
+          from: dateRange.to, //moment(),
+          to: dateRange.to, //moment(),
+          unit: 'month',                      // specifies the the bucket size; can be 'day' or 'week'
+          interval_count: 1,                // the number of desired units
+          born_event: '$signup'              // if present, an event that must be tracked within the time frame before the user can be included in the query
+          };
+          
+          endDate = dateRange.from;
+        });
+              
         eventSelect.on('change', function(e, eventName) {
           propSelect.MPPropertySelect('setEvent', eventName);
           $("#by").show();
