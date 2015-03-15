@@ -20,11 +20,28 @@
         var eventSelect = $('#eventSelect').MPEventSelect();
         var propSelect  = $('#propSelect').MPPropertySelect();
         var dateSelect  = $('#dateSelect').MPDatepicker();
-        var eventGraph  = $('#graph').MPChart({chartType: 'line'});
+        //var eventGraph  = $('#graph').MPChart({chartType: 'line'});
         var eventTable  = $('#table').MPTable({
           showPercentages: true,
           firstColHeader: 'Event'
         });
+        
+        var params = {
+          from: '2015-01-01', //moment(),
+          to: '2015-01-01', //moment(),
+          unit: 'month',                      // specifies the the bucket size; can be 'day' or 'week'
+          interval_count: 1,                // the number of desired units
+          //limit: 100,                       // maximum number of results to return
+          
+          // the following are undefined by default
+          born_event: '$signup'              // if present, an event that must be tracked within the time frame before the user can be included in the query
+          //interval: 1,                      // alternate way of specifying the number of days you want your results bucketed into
+          //where: 'properties["age"] == 21', // an expression to filter by
+          //segment: '$browser',              // a segmentation expression or event property
+          };
+          
+        // assumes you have an event called 'Track'
+      });
 
         var runQuery = function() {
           var eventName = eventSelect.MPEventSelect('value'),
@@ -32,9 +49,10 @@
               dateRange = dateSelect.MPDatepicker('value');
 
           if (eventName) {
-            MP.api.segment(eventName, propName, dateRange).done(function(results) {
-              eventGraph.MPChart('setData', results);
+            MP.api.retention('Item Won', params).done(function(results) {
+              //eventGraph.MPChart('setData', results);
               eventTable.MPTable('setData', results);
+              console.log(results.values());
             });
           }
         };
