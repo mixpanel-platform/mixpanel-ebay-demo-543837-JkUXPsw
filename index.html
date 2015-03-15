@@ -53,6 +53,10 @@
               propName  = propSelect.MPPropertySelect('value'),
               birthpName  = propSelect.MPPropertySelect('value'),
               dateRange = dateSelect.MPDatepicker('value');
+              
+          params[born_event] = birthName;
+          params[born_where] = birthpName;
+          params[where] = propName;
           
           if (eventName && birthName) {
             //change 7 later to var for entire date range
