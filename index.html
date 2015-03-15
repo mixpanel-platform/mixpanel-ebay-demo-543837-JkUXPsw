@@ -62,7 +62,7 @@
           }
         }
         
-        dateSelect.on('change', function(dateRange) {
+        dateSelect.on('change', function(e, dateRange) {
           console.log(dateRange.from);
           console.log(dateRange.to);
           params[from] = dateRange.from;
