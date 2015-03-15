@@ -20,7 +20,7 @@
         var eventSelect = $('#eventSelect').MPEventSelect();
         var propSelect  = $('#propSelect').MPPropertySelect();
         var dateSelect  = $('#dateSelect').MPDatepicker();
-        //var eventGraph  = $('#graph').MPChart({chartType: 'line'});
+        var eventGraph  = $('#graph').MPChart({chartType: 'line'});
         var eventTable  = $('#table').MPTable({
           showPercentages: true,
           firstColHeader: 'Event'
@@ -41,8 +41,7 @@
           };
           
         // assumes you have an event called 'Track'
-      });
-
+        
         var runQuery = function() {
           var eventName = eventSelect.MPEventSelect('value'),
               propName  = propSelect.MPPropertySelect('value'),
