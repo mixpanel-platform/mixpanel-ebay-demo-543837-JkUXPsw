@@ -60,7 +60,7 @@
           
           if (eventName && birthName) {
             //change 7 later to var for entire date range
-            for (i=params[from]; i<params[to], i++){
+            for (i=params[from], i<params[to], i++){
                 MP.api.retention(eventName, params).done(function(results) {
                 //eventGraph.MPChart('setData', results);
                 eventTable.MPTable('setData', results);
