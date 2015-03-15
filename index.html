@@ -29,21 +29,13 @@
         });
         
         var params = {
-          from: '2015-01-01', //moment(),
-          to: '2015-01-01', //moment(),
-          unit: 'month',                      // specifies the the bucket size; can be 'day' or 'week'
-          interval_count: 1,                // the number of desired units
-          //limit: 100,                       // maximum number of results to return
-          
-          // the following are undefined by default
-          born_event: '$signup'              // if present, an event that must be tracked within the time frame before the user can be included in the query
-          //interval: 1,                      // alternate way of specifying the number of days you want your results bucketed into
-          //where: 'properties["age"] == 21', // an expression to filter by
-          //segment: '$browser',              // a segmentation expression or event property
+          'from': '2015-01-01', //moment(),
+          'to': '2015-01-01', //moment(),
+          'unit': 'month',
+          'interval_count': 1,
+          'born_event': '$signup'
         };
           
-        // assumes you have an event called 'Track'
-        
         var runQuery = function() {
           var eventName = eventSelect.MPEventSelect('value'),
               dateRange = dateSelect.MPDatepicker('value');
@@ -52,7 +44,7 @@
           
           if (eventName) {
             //change 7 later to var for entire date range
-            for (i=params[from]; i<params[to]; i++){
+            for (i=params['from']; i<params['to']; i++){
                 MP.api.retention(eventName, params).done(function(results) {
                 //eventGraph.MPChart('setData', results);
                 eventTable.MPTable('setData', results);
@@ -65,8 +57,8 @@
         dateSelect.on('change', function(e, dateRange) {
           console.log(dateRange.from);
           console.log(dateRange.to);
-          params[from] = String(dateRange.from);
-          params[to] = String(dateRange.to);
+          params['from'] = String(dateRange.from);
+          params['to'] = String(dateRange.to);
           runQuery();
         });
               
