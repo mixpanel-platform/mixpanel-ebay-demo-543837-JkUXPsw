@@ -58,9 +58,11 @@
           params[born_where] = birthpName;
           params[where] = propName;
           
+          console.log(params);
+          
           if (eventName && birthName) {
             //change 7 later to var for entire date range
-            for (i=params[from], i<params[to], i++){
+            for (i=0, i<10, i++){
                 MP.api.retention(eventName, params).done(function(results) {
                 //eventGraph.MPChart('setData', results);
                 eventTable.MPTable('setData', results);
