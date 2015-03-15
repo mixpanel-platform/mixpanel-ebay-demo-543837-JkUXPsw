@@ -10,6 +10,9 @@
       <div id="eventSelect" style="float: left;"></div>
       <div id="by" class="mixpanel-platform-label" style="margin-left: 10px; display: none;">by</div>
       <div id="propSelect" style="float: left;"></div>
+      <div id="birthSelect" style="float: left;"></div>
+      <div id="by" class="mixpanel-platform-label" style="margin-left: 10px; display: none;">by</div>
+      <div id="birthpSelect" style="float: left;"></div>
       <div id="dateSelect" style="float: right;"></div>
       <div style="clear: both;"></div>
       <div id="graph"></div>
@@ -18,7 +21,9 @@
     <script>
       MP.api.ready(function() {
         var eventSelect = $('#eventSelect').MPEventSelect();
+        var birthSelect = $('#birthSelect').MPEventSelect();
         var propSelect  = $('#propSelect').MPPropertySelect();
+        var birthpSelect= $('#birthpSelect').MPPropertySelect();
         var dateSelect  = $('#dateSelect').MPDatepicker();
         var eventGraph  = $('#graph').MPChart({chartType: 'line'});
         var eventTable  = $('#table').MPTable({
@@ -44,13 +49,15 @@
         
         var runQuery = function() {
           var eventName = eventSelect.MPEventSelect('value'),
+              birthName = birthSelect.MPEventSelect('value'),
               propName  = propSelect.MPPropertySelect('value'),
+              birthpName  = propSelect.MPPropertySelect('value'),
               dateRange = dateSelect.MPDatepicker('value');
           
-          if (eventName) {
+          if (eventName && birthName) {
             //change 7 later to var for entire date range
-            for (i=params.to; i<params.from, i++){
-                MP.api.retention('Item Won', params).done(function(results) {
+            for (i=params[from]; i<params[to], i++){
+                MP.api.retention(eventName, params).done(function(results) {
                 //eventGraph.MPChart('setData', results);
                 eventTable.MPTable('setData', results);
                 console.log(results.values());
@@ -58,19 +65,12 @@
             }
         };
         
-        $('#datePicker').MPDatepicker().on('change', function(dateRange) {
+        dateSelect.on('change', function(dateRange) {
           console.log(dateRange.from);
           console.log(dateRange.to);
-          
-          var params = {
-          from: dateRange.to, //moment(),
-          to: dateRange.to, //moment(),
-          unit: 'month',                      // specifies the the bucket size; can be 'day' or 'week'
-          interval_count: 1,                // the number of desired units
-          born_event: '$signup'              // if present, an event that must be tracked within the time frame before the user can be included in the query
-          };
-          
-          endDate = dateRange.from;
+          params[from] = dateRange.from;
+          params[to] = dateRange.to;
+          runQuery();
         });
               
         eventSelect.on('change', function(e, eventName) {
@@ -78,8 +78,13 @@
           $("#by").show();
           runQuery();
         });
+        birthSelect.on('change', function(e, eventName) {
+          birthpSelect.MPPropertySelect('setEvent', eventName);
+          $("#by").show();
+          runQuery();
+        });
         propSelect.on('change', runQuery);
-        dateSelect.on('change', runQuery);
+        birthpSelect.on('change', runQuery);
       });
     </script>
   </body>
