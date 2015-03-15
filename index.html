@@ -49,7 +49,7 @@
           
           if (eventName) {
             //change 7 later to var for entire date range
-            for (i=dateRange.to; i<dateRange.from, i++){
+            for (i=params.to; i<params.from, i++){
                 MP.api.retention('Item Won', params).done(function(results) {
                 //eventGraph.MPChart('setData', results);
                 eventTable.MPTable('setData', results);
