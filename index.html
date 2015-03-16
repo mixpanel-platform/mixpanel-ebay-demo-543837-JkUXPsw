@@ -32,7 +32,7 @@
           'from': '2015-01-01', //moment(),
           'to': '2015-01-01', //moment(),
           'unit': 'month',
-          'interval_count': 12,
+          'interval_count': 1,
           'born_event': '$signup'
         };
           
@@ -43,21 +43,19 @@
           console.log(params);
           
           if (eventName) {
-            for (i=params['from']; i<params['to']; i++){
-                MP.api.retention(eventName, params).done(function(results) {
-                //eventGraph.MPChart('setData', results);
-                eventTable.MPTable('setData', results);
-                console.log(results.values());
-              });
-            }
+              MP.api.retention(eventName, params).done(function(results) {
+              //eventGraph.MPChart('setData', results);
+              eventTable.MPTable('setData', results);
+              console.log(results.values());
+            });
           }
         }
         
         dateSelect.on('change', function(e, dateRange) {
           console.log(dateRange.from);
           console.log(dateRange.to);
-          params['from'] = dateRange.from.toISOString().substring(0, 10);
-          params['to'] = dateRange.to.toISOString().substring(0, 10);
+          params['from'] = String(dateRange.from);
+          params['to'] = String(dateRange.to);
           runQuery();
         });
               
