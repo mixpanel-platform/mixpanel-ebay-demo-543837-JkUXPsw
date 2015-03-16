@@ -29,10 +29,12 @@
         });
         
         var params = {
-          'from': '2015-01-01', //moment(),
-          'to': '2015-01-01', //moment(),
+          //'from': '2015-01-01', //moment(),
+          //'to': '2015-01-01', //moment(),
+          'from' = $('#dateSelect').val()[from].toISOString().substring(0, 10);,
+          'to' = $('#dateSelect').val()[to].toISOString().substring(0, 10);,
           'unit': 'month',
-          'interval_count': 1,
+          'interval_count': 12,
           'born_event': '$signup'
         };
           
@@ -43,19 +45,24 @@
           console.log(params);
           
           if (eventName) {
-              MP.api.retention(eventName, params).done(function(results) {
-              //eventGraph.MPChart('setData', results);
-              eventTable.MPTable('setData', results);
-              console.log(results.values());
-            });
+            console.log(params['from']);
+            console.log(params['to']);
+            for (i=params['from']; i<params['to']; i++){
+                console.log(i);
+                MP.api.retention(eventName, params).done(function(results) {
+                //eventGraph.MPChart('setData', results);
+                eventTable.MPTable('setData', results);
+                console.log(results.values());
+              });
+            }
           }
         }
         
         dateSelect.on('change', function(e, dateRange) {
           console.log(dateRange.from);
           console.log(dateRange.to);
-          params['from'] = String(dateRange.from);
-          params['to'] = String(dateRange.to);
+          params['from'] = dateRange.from.toISOString().substring(0, 10);
+          params['to'] = dateRange.to.toISOString().substring(0, 10);
           runQuery();
         });
               
