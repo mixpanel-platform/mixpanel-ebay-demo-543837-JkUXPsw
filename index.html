@@ -43,7 +43,6 @@
           console.log(params);
           
           if (eventName) {
-            //change 7 later to var for entire date range
             for (i=params['from']; i<params['to']; i++){
                 MP.api.retention(eventName, params).done(function(results) {
                 //eventGraph.MPChart('setData', results);
@@ -57,8 +56,8 @@
         dateSelect.on('change', function(e, dateRange) {
           console.log(dateRange.from);
           console.log(dateRange.to);
-          params['from'] = String(dateRange.from);
-          params['to'] = String(dateRange.to);
+          params['from'] = dateRange.from.toISOString().substring(0, 10);
+          params['to'] = dateRange.to.toISOString().substring(0, 10);
           runQuery();
         });
               
