@@ -32,9 +32,8 @@
           'from': '2015-01-01', //moment(),
           'to': '2015-01-01', //moment(),
           'unit': 'month',
-          'interval_count': 10,
-          'born_event': '$signup',
-          'retention_type': 'birth'
+          'interval_count': 1,
+          'born_event': '$signup'
         };
           
         var runQuery = function() {
@@ -58,8 +57,8 @@
         dateSelect.on('change', function(e, dateRange) {
           console.log(dateRange.from);
           console.log(dateRange.to);
-          params['from'] = String(dateRange.from);
-          params['to'] = String(dateRange.to);
+          params['from'] = dateRange.from.toISOString().substring(0, 10);
+          params['to'] = dateRange.to.toISOString().substring(0, 10);
           runQuery();
         });
               
