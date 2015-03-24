@@ -84,24 +84,44 @@
           console.log(totalResults);
           for(i=0; i<results_keys.length; i++){
             if(current_date.toISOString().substring(9, 10) == '1'){
-              finalResults[current_date.toISOString().substring(0, 10)] = {'$': 0};
-              finalResults[current_date.toISOString().substring(0, 10)]['$'] = totalResults[current_date.toISOString().substring(0, 10)]['first'] - sumFirst;
-              var counts_keys = Object.keys(totalResults[current_date.toISOString().substring(0, 10)]['counts']);
-              for(j=0; j<counts_keys.length; j++){
-                finalResults[current_date.toISOString().substring(0, 10)][j] = totalResults[current_date.toISOString().substring(0, 10)]['counts'][j] - sums[j];
-                sums[j] = totalResults[current_date.toISOString().substring(0, 10)]['counts'][j];
+              if(totalResults[current_date.toISOString().substring(0, 10)]['first'] === 'undefined'){
+                finalResults[current_date.toISOString().substring(0, 10)] = {'$': 0};
+                var counts_keys = Object.keys(totalResults[current_date.toISOString().substring(0, 10)]['counts']);
+                for(j=0; j<counts_keys.length; j++){
+                  finalResults[current_date.toISOString().substring(0, 10)][j] = 0;
+                  sums[j] = 0;
+                }
               }
-              sumFirst = 0;
-              sums = {0:0, 1:0, 2:0, 3:0,4:0, 5:0, 6:0, 7:0, 8:0, 9:0, 10:0, 11:0, 12:0, 13:0, 14:0, 15:0};
+              else{
+                finalResults[current_date.toISOString().substring(0, 10)] = {'$': 0};
+                finalResults[current_date.toISOString().substring(0, 10)]['$'] = totalResults[current_date.toISOString().substring(0, 10)]['first'] - sumFirst;
+                var counts_keys = Object.keys(totalResults[current_date.toISOString().substring(0, 10)]['counts']);
+                for(j=0; j<counts_keys.length; j++){
+                  finalResults[current_date.toISOString().substring(0, 10)][j] = totalResults[current_date.toISOString().substring(0, 10)]['counts'][j] - sums[j];
+                  sums[j] = totalResults[current_date.toISOString().substring(0, 10)]['counts'][j];
+                }
+                sumFirst = 0;
+                sums = {0:0, 1:0, 2:0, 3:0,4:0, 5:0, 6:0, 7:0, 8:0, 9:0, 10:0, 11:0, 12:0, 13:0, 14:0, 15:0};
+              }
             }
             else{
-              finalResults[current_date.toISOString().substring(0, 10)] = {'$': 0};
-              finalResults[current_date.toISOString().substring(0, 10)]['$'] = totalResults[current_date.toISOString().substring(0, 10)]['first'] - sumFirst;
-              sumFirst = totalResults[current_date.toISOString().substring(0, 10)]['first'];
-              var counts_keys = Object.keys(totalResults[current_date.toISOString().substring(0, 10)]['counts']);
-              for(j=0; j<counts_keys.length; j++){
-                finalResults[current_date.toISOString().substring(0, 10)][j] = totalResults[current_date.toISOString().substring(0, 10)]['counts'][j] - sums[j];
-                sums[j] = totalResults[current_date.toISOString().substring(0, 10)]['counts'][j];
+              if(totalResults[current_date.toISOString().substring(0, 10)]['first'] === 'undefined'){
+                finalResults[current_date.toISOString().substring(0, 10)] = {'$': 0};
+                var counts_keys = Object.keys(totalResults[current_date.toISOString().substring(0, 10)]['counts']);
+                for(j=0; j<counts_keys.length; j++){
+                  finalResults[current_date.toISOString().substring(0, 10)][j] = 0;
+                  sums[j] = 0;
+                }
+              }
+              else{
+                finalResults[current_date.toISOString().substring(0, 10)] = {'$': 0};
+                finalResults[current_date.toISOString().substring(0, 10)]['$'] = totalResults[current_date.toISOString().substring(0, 10)]['first'] - sumFirst;
+                sumFirst = totalResults[current_date.toISOString().substring(0, 10)]['first'];
+                var counts_keys = Object.keys(totalResults[current_date.toISOString().substring(0, 10)]['counts']);
+                for(j=0; j<counts_keys.length; j++){
+                  finalResults[current_date.toISOString().substring(0, 10)][j] = totalResults[current_date.toISOString().substring(0, 10)]['counts'][j] - sums[j];
+                  sums[j] = totalResults[current_date.toISOString().substring(0, 10)]['counts'][j];
+                }
               }
             }
             current_date.setDate(current_date.getDate() - 1);
