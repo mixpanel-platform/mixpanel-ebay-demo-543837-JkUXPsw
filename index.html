@@ -84,7 +84,7 @@
           console.log(totalResults);
           for(i=0; i<results_keys.length; i++){
             if(current_date.toISOString().substring(9, 10) == '1'){
-              if(totalResults[current_date.toISOString().substring(0, 10)] === 'undefined'){
+              if(typeof totalResults[current_date.toISOString().substring(0, 10)] === 'undefined'){
                 finalResults[current_date.toISOString().substring(0, 10)] = {'$': 0};
               }
               else{
@@ -100,7 +100,7 @@
               }
             }
             else{
-              if(totalResults[current_date.toISOString().substring(0, 10)] === 'undefined'){
+              if(typeof totalResults[current_date.toISOString().substring(0, 10)] === 'undefined'){
                 finalResults[current_date.toISOString().substring(0, 10)] = {'$': 0};
               }
               else{
